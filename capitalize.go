@@ -9,22 +9,20 @@ func IsNumerique(s rune) bool {
 }
 
 func Capitalize(s string) string {
-	st := []rune(s)
-	firstletter := true
+	str := []rune(s)
+	first := true
 
-	for i := range st {
-		if (st[i] >= 'a' && st[i] <= 'z') && firstletter {
-			st[i] -= 32
-			firstletter = false
-		} else if (st[i] >= 48 && st[i] <= 57) || (st[i] >= 'A' && st[i] <= 'Z') && firstletter {
-			firstletter = false
-		} else if (st[i] >= 'A' && st[i] <= 'Z') && !firstletter {
-			st[i] += 32
-		} else if !firstletter && !(st[i] >= 48 && st[i] <= 57) && !IsNumerique(st[i]) {
-			firstletter = true
+	for idx, value := range str {
+		if IsNumerique(value) && first {
+			if value >= 'a' && value <= 'z' {
+				str[idx] -= 32
+			}
+			first = false
+		} else if value >= 'A' && value <= 'Z' {
+			str[idx] += 32
+		} else if !IsNumerique(value) {
+			first = true
 		}
 	}
-	str := string(st)
-
-	return str
+	return string(str)
 }
